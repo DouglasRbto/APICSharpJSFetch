@@ -1,37 +1,51 @@
+using Microsoft.EntityFrameworkCore;
+using API.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<UsuarioDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("PermitirTudo",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+    options.AddPolicy("PermitirTudo", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseRouting();
-
 app.UseCors("PermitirTudo");
 
-app.UseAuthorization();
+app.MapGet("/usuarios", async (UsuarioDbContext context) =>
+{
+    return await context.Usuarios.ToListAsync();
+});
 
-app.UseHttpsRedirection();
+app.MapPost("/usuarios", async (Usuario usuario, UsuarioDbContext context) =>
+{
+    context.Usuarios.Add(usuario);
+    await context.SaveChangesAsync();
+    return Results.Ok($"O usuário {usuario.Nome} foi adicionado com sucesso.");
+});
 
-app.MapControllers();
+app.MapDelete("/usuarios/{id:int}", async (int id, UsuarioDbContext context) =>
+{
+    var usuario = await context.Usuarios.FindAsync(id);
+    
+    if(usuario == null)
+    {
+        return Results.NotFound($"Usuário não encontrado.");
+    }
+
+    context.Usuarios.Remove(usuario);
+    await context.SaveChangesAsync();
+    return Results.Ok($"Usuário com ID {id} foi deletado com sucesso.");
+});
 
 app.Run();

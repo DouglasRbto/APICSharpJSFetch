@@ -3,29 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     <title>Exibir Dados da API</title>
 </head>
 <body>
-    <h1>Dados da API</h1>
-    <div id="dados"></div>
-    <script>
-        async function buscarDados() {
-            try {
-                const response = await fetch('https://localhost:7021/api/ControladorAPI/dados');
-                if (!response.ok) {
-                    throw new Error(`Erro: ${response.status}`);
-                }
-                const dados = await response.json();
-                const dadosDiv = document.getElementById("dados");
-
-                dadosDiv.innerHTML = dados.map(item => `
-                    <p>Id: ${item.id}, Nome: ${item.nome}, Valor: ${item.valor}</p>
-                `).join('');
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-            }
-        }
-        buscarDados();
-    </script>
+    <h1>Exibir Dados da API</h1>
+    <div class="container">
+        <div>
+            <form class="formulario" id="formulario">
+                <label for="nome">Nome: <input class="name" type="text" size="32" placeholder="Insira aqui o nome" id="nome" /></label>
+                <label for="idade">Idade: <input type="number" size="4" placeholder="Ex: 18" id="idade" /></label>
+                <div id="buttons">
+                    <button type="submit">Salvar dados</button>
+                    <button type="reset">Limpar</button>
+                </div>
+            </form>
+        </div>
+        <div id="separador"></div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>IDADE</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="dados"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
 </body>
 </html>

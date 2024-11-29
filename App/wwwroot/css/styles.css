@@ -1,0 +1,105 @@
+﻿h1 {
+    background-color: #083060;
+    color: #fffefe;
+    border-radius: 20px;
+    max-width: 77%;
+    margin: 5px auto;
+    margin-bottom: 15px;
+    padding: 0.5vh;
+}
+
+body {
+    color: #083060;
+    background-color: #fffefe;
+    margin: auto auto;
+    text-align: center;
+    font-family: Montserrat;
+}
+
+.container {
+    background-color: #fffefe;
+    color: #083060;
+    border-radius: 30px;
+    box-shadow: 0 0 5px lightgray;
+    max-width: 70%;
+    min-width: 20%;
+    margin: auto auto;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5vh 1vw;
+}
+
+.formulario {
+    margin: auto 5%;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    row-gap: 0.5vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2vh;
+}
+
+input {
+    border-radius: 4px;
+    margin-left: 0.7vw;
+}
+
+#separador {
+    background-color: #083060;
+    height: 0.5vh;
+    margin: auto auto;
+    margin-bottom: 15px;
+    max-width: 90%;
+    border-radius: 5px;
+}
+
+table {
+    margin: 2vh auto;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #b6353a;
+    color: #fffefe;
+}
+
+tr {
+    border-bottom: 2px solid #b6353a;
+    padding: 10px;
+    text-align: left;
+}
+
+td, th {
+    padding: 0.2vh 2vw;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#apagar {
+    white-space: nowrap;
+    width: 1%;
+}
+
+button {
+    transition-duration: 0.4s;
+    background-color: #b6353a;
+    color: #fffefe;
+    border-radius: 5px;
+    border: none;
+}
+
+.btnApagar {
+    background-color: #b6353a;
+    color: #fffefe;
+    border-radius: 30%;
+    border: none;
+}
+
+    .btnApagar:hover, button:hover {
+        background-color: #083060;
+    }
